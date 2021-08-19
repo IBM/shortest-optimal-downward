@@ -40,6 +40,11 @@ int SearchNode::get_g() const {
     return info.g;
 }
 
+int SearchNode::get_d() const {
+    assert(info.d >= 0);
+    return info.d;
+}
+
 int SearchNode::get_real_g() const {
     return info.real_g;
 }
@@ -51,6 +56,7 @@ void SearchNode::open_initial() {
     info.real_g = 0;
     info.parent_state_id = StateID::no_state;
     info.creating_operator = OperatorID::no_operator;
+    info.d = 0;
 }
 
 void SearchNode::open(const SearchNode &parent_node,
@@ -62,6 +68,7 @@ void SearchNode::open(const SearchNode &parent_node,
     info.real_g = parent_node.info.real_g + parent_op.get_cost();
     info.parent_state_id = parent_node.get_state().get_id();
     info.creating_operator = OperatorID(parent_op.get_id());
+    info.d = parent_node.info.d + 1;
 }
 
 void SearchNode::reopen(const SearchNode &parent_node,
@@ -77,6 +84,7 @@ void SearchNode::reopen(const SearchNode &parent_node,
     info.real_g = parent_node.info.real_g + parent_op.get_cost();
     info.parent_state_id = parent_node.get_state().get_id();
     info.creating_operator = OperatorID(parent_op.get_id());
+    info.d = parent_node.info.d + 1;
 }
 
 // like reopen, except doesn't change status
@@ -91,6 +99,7 @@ void SearchNode::update_parent(const SearchNode &parent_node,
     info.real_g = parent_node.info.real_g + parent_op.get_cost();
     info.parent_state_id = parent_node.get_state().get_id();
     info.creating_operator = OperatorID(parent_op.get_id());
+    info.d = parent_node.info.d + 1;
 }
 
 void SearchNode::close() {

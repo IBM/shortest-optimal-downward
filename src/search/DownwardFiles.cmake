@@ -272,6 +272,14 @@ fast_downward_plugin(
 )
 
 fast_downward_plugin(
+    NAME D_EVALUATOR
+    HELP "The d-evaluator"
+    SOURCES
+        evaluators/d_evaluator
+    DEPENDS EVALUATORS_PLUGIN_GROUP
+)
+
+fast_downward_plugin(
     NAME COMBINING_EVALUATOR
     HELP "The combining evaluator"
     SOURCES
@@ -357,7 +365,7 @@ fast_downward_plugin(
     HELP "Basic classes used for all search engines"
     SOURCES
         search_engines/search_common
-    DEPENDS ALTERNATION_OPEN_LIST G_EVALUATOR BEST_FIRST_OPEN_LIST SUM_EVALUATOR TIEBREAKING_OPEN_LIST WEIGHTED_EVALUATOR
+    DEPENDS ALTERNATION_OPEN_LIST G_EVALUATOR D_EVALUATOR BEST_FIRST_OPEN_LIST SUM_EVALUATOR TIEBREAKING_OPEN_LIST WEIGHTED_EVALUATOR
     DEPENDENCY_ONLY
 )
 
@@ -371,11 +379,28 @@ fast_downward_plugin(
 )
 
 fast_downward_plugin(
+    NAME SHORTEST_EAGER_SEARCH
+    HELP "Adapted eager search algorithm"
+    SOURCES
+        search_engines/shortest_eager_search
+    DEPENDS EAGER_SEARCH
+    DEPENDENCY_ONLY
+)
+
+fast_downward_plugin(
     NAME PLUGIN_ASTAR
     HELP "A* search"
     SOURCES
         search_engines/plugin_astar
     DEPENDS EAGER_SEARCH SEARCH_COMMON
+)
+
+fast_downward_plugin(
+    NAME PLUGIN_SHORTEST_ASTAR
+    HELP "A* search"
+    SOURCES
+        search_engines/plugin_shortest_astar
+    DEPENDS SHORTEST_EAGER_SEARCH SEARCH_COMMON
 )
 
 fast_downward_plugin(
