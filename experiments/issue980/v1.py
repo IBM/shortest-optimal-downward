@@ -54,6 +54,11 @@ attributes = (
 exp.add_absolute_report_step(attributes=attributes)
 #exp.add_comparison_table_step(attributes=attributes)
 
+nicks = ["shortest-blind", "shortest-lmcut", "shortest-ms", "shortest-cegar", "shortest-hmax", "shortest-ipdb"]
+
+algs = ["%s-%s" % (r, nick) for r in REVISIONS for nick in nicks ]
+exp.add_absolute_report_step(attributes=attributes,filter_algorithm=algs)
+
 
 #exp.add_comparison_table_step()
 """
