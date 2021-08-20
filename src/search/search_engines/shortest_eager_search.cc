@@ -234,9 +234,9 @@ SearchStatus ShortestEagerSearch::step() {
                 statistics.print_checkpoint_line(succ_node.get_g());
                 reward_progress();
             }
-        } else if (succ_node.get_g() > node->get_g() + get_adjusted_cost(op) 
-           || (succ_node.get_g() == node->get_g() + get_adjusted_cost(op) 
-               && succ_node.get_d() > node->get_d() + 1)) {
+        } else if (succ_node.get_g() > node->get_g() + get_adjusted_cost(op)
+                   || (succ_node.get_g() == node->get_g() + get_adjusted_cost(op)
+                       && succ_node.get_d() > node->get_d() + 1)) {
             // We found a new cheapest path to an open or closed state.
             if (reopen_closed_nodes) {
                 if (succ_node.is_closed()) {
@@ -309,5 +309,4 @@ void ShortestEagerSearch::update_f_value_statistics(EvaluationContext &eval_cont
         statistics.report_f_value_progress(f_value);
     }
 }
-
 }

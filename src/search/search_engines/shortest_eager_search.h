@@ -47,7 +47,6 @@ public:
 
     void dump_search_space() const;
 };
-
 }
 
 #endif

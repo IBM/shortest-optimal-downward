@@ -181,7 +181,7 @@ public:
     SegmentedArrayVector(size_t elements_per_array_)
         : elements_per_array(elements_per_array_),
           arrays_per_segment(
-              std::max(SEGMENT_BYTES / (elements_per_array * sizeof(Element)), size_t(1))),
+              std::max(SEGMENT_BYTES / (elements_per_array * sizeof(Element)), size_t (1))),
           elements_per_segment(elements_per_array * arrays_per_segment),
           the_size(0) {
     }
@@ -191,7 +191,7 @@ public:
         : element_allocator(allocator_),
           elements_per_array(elements_per_array_),
           arrays_per_segment(
-              std::max(SEGMENT_BYTES / (elements_per_array * sizeof(Element)), size_t(1))),
+              std::max(SEGMENT_BYTES / (elements_per_array * sizeof(Element)), size_t (1))),
           elements_per_segment(elements_per_array * arrays_per_segment),
           the_size(0) {
     }
