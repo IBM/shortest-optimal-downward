@@ -7,8 +7,8 @@ from lab.environments import LocalEnvironment, BaselSlurmEnvironment
 
 import common_setup
 from common_setup import IssueConfig, IssueExperiment
-from relativescatter import RelativeScatterPlotReport
-from itertools import combinations
+# from relativescatter import RelativeScatterPlotReport
+# from itertools import combinations
 
 DIR = os.path.dirname(os.path.abspath(__file__))
 BENCHMARKS_DIR = os.environ["DOWNWARD_BENCHMARKS"]
@@ -49,33 +49,41 @@ exp.add_step('start', exp.start_runs)
 exp.add_fetcher(name='fetch')
 exp.add_fetcher('data/issue980-v1-eval')
 attributes = (
-            IssueExperiment.DEFAULT_TABLE_ATTRIBUTES + ["plan_length"])
+            IssueExperiment.DEFAULT_TABLE_ATTRIBUTES + ["plan_length", "reopened"])
 exp.add_absolute_report_step(attributes=attributes)
 #exp.add_comparison_table_step(attributes=attributes)
 
 
+def make_comparison_table():
+    alg_names = ["blind", "cegar", "hmax", "ipdb", "lmcut", "ms"]
+    rev1 = "7a9dc9fd2f6ab01112f8f0b8c8bca26d371b1a1"
+    rev2 = "issue980v2-shortest"
+    pairs = [ ("%s-%s" % (rev1, nick), "%s-%s" % (rev2, nick)) for nick in alg_names]
+
+    report = common_setup.ComparativeReport(
+        algorithm_pairs=pairs, attributes=attributes,
+    )
+    outfile = os.path.join(
+        exp.eval_dir, "%s-compare.%s" % (exp.name, report.output_format)
+    )
+    report(exp.eval_dir, outfile)
+
+    exp.add_report(report)
+
+exp.add_step("comparison table", make_comparison_table)
+
 #exp.add_comparison_table_step()
-"""
-for r1, r2 in combinations(REVISIONS, 2):
-    for nick in ["opcount-seq-lmcut", "diverse-potentials", "optimal-lmcount"]:
-        exp.add_report(RelativeScatterPlotReport(
-            attributes=["total_time"],
-            filter_algorithm=["%s-%s" % (r, nick) for r in [r1, r2]],
-            get_category=lambda run1, run2: run1["domain"]),
-            outfile="issue925-v1-total-time-%s-%s-%s.png" % (r1, r2, nick))
-"""
 
-alg_names = ["blind", "cegar", "hmax", "ipdb", "lmcut", "ms"]
-rev1 = "7a9dc9fd2f6ab01112f8f0b8c8bca26d371b1a1"
-rev2 = "issue980v2-shortest"
 
-attrs = ["total_time", "reopened", "memory", "expansions", "expansions_until_last_jump"]
-for attr in attrs:
-    for nick in alg_names:
-        exp.add_report(RelativeScatterPlotReport(
-                    attributes=attr,
-                                filter_algorithm=["%s-%s" % (r, nick) for r in [rev1, rev2]],
-                                            get_category=lambda run1, run2: run1["domain"]),
-                                                        outfile="issue980-base-%s-%s-%s-%s.png" % (attr, r1, r2, nick))
+
+
+# attrs = ["total_time", "reopened", "memory", "expansions", "expansions_until_last_jump"]
+# for attr in attrs:
+#     for nick in alg_names:
+#         exp.add_report(RelativeScatterPlotReport(
+#                     attributes=attr,
+#                                 filter_algorithm=["%s-%s" % (r, nick) for r in [rev1, rev2]],
+#                                             get_category=lambda run1, run2: run1["domain"]),
+#                                                         outfile="issue980-base-%s-%s-%s-%s.png" % (attr, r1, r2, nick))
 
 exp.run_steps()
