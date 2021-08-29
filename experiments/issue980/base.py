@@ -7,6 +7,8 @@ from lab.environments import LocalEnvironment, BaselSlurmEnvironment
 
 import common_setup
 from common_setup import IssueConfig, IssueExperiment
+from downward.reports.scatter import ScatterPlotReport
+
 # from relativescatter import RelativeScatterPlotReport
 # from itertools import combinations
 
@@ -75,6 +77,33 @@ exp.add_step("comparison table", make_comparison_table)
 
 #exp.add_comparison_table_step()
 
+exp.add_scatter_plot_step(attributes=['search_time'])
+exp.add_scatter_plot_step(attributes=['search_time'], relative=True)
+
+
+
+def make_scatter():
+    alg_names = ["blind", "cegar", "hmax", "ipdb", "lmcut", "ms"]
+    attributes = ['search_time', "plan_length"]
+    rev1 = "7a9dc9fd2f6ab01112f8f0b8c8bca26d371b1a1c"
+    rev2 = "issue980v2-shortest"
+    for nick in alg_names:
+
+        algo1 = "%s-%s" % (rev1, nick)
+        algo2 = "%s-%s" % (rev2, nick)
+
+        for attr in attributes:        
+            report = ScatterPlotReport(
+                    filter_algorithm=[algo1, algo2],
+                    attributes=[attr],
+                    relative=True,
+                    get_category=lambda run1, run2: run1["domain"])
+
+            outfile = os.path.join(
+                exp.eval_dir, "%s-scatter-%s.%s" % (exp.name, attr, report.output_format)
+            )
+            report(exp.eval_dir, outfile)
+            exp.add_report(report)
 
 
 
