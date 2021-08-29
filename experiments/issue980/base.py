@@ -96,11 +96,11 @@ def make_scatter():
             report = ScatterPlotReport(
                     filter_algorithm=[algo1, algo2],
                     attributes=[attr],
-                    relative=True,
+                    relative=False,
                     get_category=lambda run1, run2: run1["domain"])
 
             outfile = os.path.join(
-                exp.eval_dir, "%s-scatter-%s.%s" % (exp.name, attr, report.output_format)
+                exp.eval_dir, "%s-scatter-%s-%s.%s" % (exp.name, nick, attr, report.output_format)
             )
             report(exp.eval_dir, outfile)
             exp.add_report(report)
