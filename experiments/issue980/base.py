@@ -56,9 +56,10 @@ exp.add_absolute_report_step(attributes=attributes)
 
 def make_comparison_table():
     alg_names = ["blind", "cegar", "hmax", "ipdb", "lmcut", "ms"]
-    rev1 = "7a9dc9fd2f6ab01112f8f0b8c8bca26d371b1a1"
+    rev1 = "7a9dc9fd2f6ab01112f8f0b8c8bca26d371b1a1c"
     rev2 = "issue980v2-shortest"
     pairs = [ ("%s-%s" % (rev1, nick), "%s-%s" % (rev2, nick)) for nick in alg_names]
+    print(pairs)
 
     report = common_setup.ComparativeReport(
         algorithm_pairs=pairs, attributes=attributes,
