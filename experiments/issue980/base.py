@@ -77,8 +77,8 @@ exp.add_step("comparison table", make_comparison_table)
 
 #exp.add_comparison_table_step()
 
-exp.add_scatter_plot_step(attributes=['search_time'])
-exp.add_scatter_plot_step(attributes=['search_time'], relative=True)
+#exp.add_scatter_plot_step(attributes=['search_time'])
+#exp.add_scatter_plot_step(attributes=['search_time'], relative=True)
 
 
 
@@ -105,7 +105,7 @@ def make_scatter():
             report(exp.eval_dir, outfile)
             exp.add_report(report)
 
-
+exp.add_step("Scatter plots", make_scatter)
 
 # attrs = ["total_time", "reopened", "memory", "expansions", "expansions_until_last_jump"]
 # for attr in attrs:
