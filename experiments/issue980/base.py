@@ -103,7 +103,7 @@ def make_scatter():
                 exp.eval_dir, "%s-scatter-%s-%s.%s" % (exp.name, nick, attr, report.output_format)
             )
             report(exp.eval_dir, outfile)
-            exp.add_report(report)
+            exp.add_report(report, name ="%s-%s-%s" % ("scatter", nick, attr))
 
 exp.add_step("Scatter plots", make_scatter)
 
