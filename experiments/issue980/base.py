@@ -97,6 +97,7 @@ def make_scatter():
                     filter_algorithm=[algo1, algo2],
                     attributes=[attr],
                     relative=False,
+                    format="tex",
                     get_category=lambda run1, run2: run1["domain"])
 
             outfile = os.path.join(
