@@ -20,6 +20,8 @@ using utils::ExitCode;
 
 namespace tasks {
 static const int PRE_FILE_VERSION = 3;
+static const int COST_MULTIPLIER = 10000;
+
 shared_ptr<AbstractTask> g_root_task = nullptr;
 
 struct ExplicitVariable {
@@ -207,7 +209,7 @@ ExplicitOperator::ExplicitOperator(istream &in, bool is_an_axiom, bool use_metri
 
         int op_cost;
         in >> op_cost;
-        cost = use_metric ? op_cost : 1;
+        cost = use_metric ? op_cost * COST_MULTIPLIER + 1 : 1;
         check_magic(in, "end_operator");
     } else {
         name = "<axiom>";
