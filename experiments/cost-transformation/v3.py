@@ -64,12 +64,16 @@ nicks = ["blind", "lmcut", "ms", "cegar", "hmax", "ipdb"]
 # algs = ["%s-ct-%s" % (r, nick) for r in REVISIONS for nick in nicks ]
 # algs.extend(["c292531fa6cdbeae95a0bf576fd50a65967ed5cc-shortest-%s" % nick for nick in nicks ])
 
-algs = ["ct-%s" % nick for nick in nicks ]
-algs.extend(["shortest-%s" % nick for nick in nicks ])
+algs = []
+algorithm_pairs = []
+for nick in nicks:
+    algs.extend(["ct-%s" % nick, "shortest-%s" % nick])
+    algorithm_pairs.extend(("ct-%s" % nick, "shortest-%s" % nick))
+
 
 
 exp.add_absolute_report_step(attributes=attributes, filter=rename_algorithms, filter_algorithm=algs)
-exp.add_comparison_table_step(attributes=attributes, filter=rename_algorithms, filter_algorithm=algs, revisions=["ct", "shortest"])
+exp.add_comparison_table_step(attributes=attributes, filter=rename_algorithms, algorithm_pairs=algorithm_pairs, revisions=["ct", "shortest"])
 
 
 #exp.add_comparison_table_step()
