@@ -4,6 +4,7 @@
 import os
 
 from lab.environments import LocalEnvironment, BaselSlurmEnvironment
+from downward.reports.compare import ComparativeReport
 
 import common_setup
 from common_setup import IssueConfig, IssueExperiment
@@ -65,14 +66,26 @@ nicks = ["blind", "lmcut", "ms", "cegar", "hmax", "ipdb"]
 # algs.extend(["c292531fa6cdbeae95a0bf576fd50a65967ed5cc-shortest-%s" % nick for nick in nicks ])
 
 algs = []
-pairs = [("ct-%s" % nick, "shortest-%s" % nick) for nick in nicks]
 for nick in nicks:
     algs.extend(["ct-%s" % nick, "shortest-%s" % nick])
 
 
 
 exp.add_absolute_report_step(attributes=attributes, filter=rename_algorithms, filter_algorithm=algs)
-exp.add_comparison_table_step(attributes=attributes, filter=rename_algorithms, algorithm_pairs=pairs, revisions=["ct", "shortest"])
+
+def make_comparison_tables():
+    compared_configs = [("ct-%s" % nick, "shortest-%s" % nick, "Diff (%s)" % nick) for nick in nicks]
+
+    report = ComparativeReport(compared_configs, attributes=attributes, filter=rename_algorithms)
+    outfile = os.path.join(
+                    exp.eval_dir,
+                    "%s-compare.%s" % (
+                        exp.name, report.output_format))
+    report(exp.eval_dir, outfile)
+
+exp.add_step("make-comparison-tables", make_comparison_tables)
+
+# exp.add_comparison_table_step(attributes=attributes, filter=rename_algorithms, algorithm_pairs=pairs, revisions=["ct", "shortest"])
 
 
 #exp.add_comparison_table_step()
