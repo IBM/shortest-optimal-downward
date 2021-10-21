@@ -73,17 +73,25 @@ for nick in nicks:
 
 exp.add_absolute_report_step(attributes=attributes, filter=rename_algorithms, filter_algorithm=algs)
 
+
+NEW_SUITE = [x for x in SUITE if "parcprinter" not in x]
+
+
 def make_comparison_tables():
     compared_configs = [("ct-%s" % nick, "shortest-%s" % nick, "Diff (%s)" % nick) for nick in nicks]
 
-    report = ComparativeReport(compared_configs, attributes=attributes, filter=rename_algorithms)
+    report = ComparativeReport(compared_configs, attributes=attributes, filter=rename_algorithms, filter_domain=NEW_SUITE)
     outfile = os.path.join(
                     exp.eval_dir,
-                    "%s-compare.%s" % (
+                    "%s-compare-no-parcprinter.%s" % (
                         exp.name, report.output_format))
     report(exp.eval_dir, outfile)
 
 exp.add_step("make-comparison-tables", make_comparison_tables)
+
+
+
+
 
 # exp.add_comparison_table_step(attributes=attributes, filter=rename_algorithms, algorithm_pairs=pairs, revisions=["ct", "shortest"])
 
