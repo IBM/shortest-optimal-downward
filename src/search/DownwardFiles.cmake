@@ -555,6 +555,7 @@ fast_downward_plugin(
         tasks/cost_adapted_task
         tasks/delegating_task
         tasks/root_task
+        tasks/cost_transformed_shortest_task
     CORE_PLUGIN
 )
 

@@ -20,7 +20,6 @@ using utils::ExitCode;
 
 namespace tasks {
 static const int PRE_FILE_VERSION = 3;
-static const int COST_MULTIPLIER = 10000;
 
 shared_ptr<AbstractTask> g_root_task = nullptr;
 
