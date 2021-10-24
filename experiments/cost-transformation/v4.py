@@ -48,7 +48,8 @@ exp.add_step('build', exp.build)
 exp.add_step('start', exp.start_runs)
 exp.add_fetcher(name='fetch')
 
-exp.add_fetcher('data/v3-eval')
+#exp.add_fetcher('data/v3-eval')
+exp.add_fetcher('/data/software/shortest-deval/experiments/issue980/data/issue980-v2-eval')
 
 # exp.add_fetcher('/data/software/shortest-structural-symmetries-pruning/experiments/issue980/data/issue980-v5-DEval-all-eval')
 
