@@ -44,6 +44,7 @@ exp.add_parser(exp.EXITCODE_PARSER)
 exp.add_parser(exp.TRANSLATOR_PARSER)
 exp.add_parser(exp.SINGLE_SEARCH_PARSER)
 exp.add_parser(exp.PLANNER_PARSER)
+exp.add_parser("parser.py")
 
 exp.add_step('build', exp.build)
 exp.add_step('start', exp.start_runs)
@@ -53,7 +54,7 @@ exp.add_fetcher('data/issue980-v1-eval')
 exp.add_fetcher('data/issue980-consistent-eval')
 exp.add_fetcher('data/issue980-por-eval')
 attributes = (
-            IssueExperiment.DEFAULT_TABLE_ATTRIBUTES + ["plan_length"])
+            IssueExperiment.DEFAULT_TABLE_ATTRIBUTES + ["plan_length", "fixed_cost", "fixed_initial_h_value"])
 #exp.add_absolute_report_step(attributes=attributes)
 #exp.add_comparison_table_step(attributes=attributes)
 
