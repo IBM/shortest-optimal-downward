@@ -18,14 +18,14 @@ BENCHMARKS_DIR = os.environ["DOWNWARD_BENCHMARKS"]
 REVISIONS = ["issue980v2"]
 CONFIGS = [
     # IssueConfig("blind", ["--search", "astar(blind())"]),
-    IssueConfig("shortest-blind", ["--search", "shortest_astar(blind())"]),
-    IssueConfig("lmcut", ["--search", "astar(lmcut())"]),
-    IssueConfig("shortest-lmcut", ["--search", "shortest_astar(lmcut())"]),
+    IssueConfig("shortest-blind", ["--search", "shortest_astar(blind(),verbosity=silent)"]),
+    # IssueConfig("lmcut", ["--search", "astar(lmcut())"]),
+    IssueConfig("shortest-lmcut", ["--search", "shortest_astar(lmcut(),verbosity=silent)"]),
 
-    IssueConfig("shortest-ms", ["--search", "shortest_astar(merge_and_shrink(transform=no_transform(), cache_estimates=true, merge_strategy=merge_strategy=merge_sccs(order_of_sccs=topological,merge_selector=score_based_filtering(scoring_functions=[goal_relevance,dfp,total_order])),shrink_strategy=shrink_strategy=shrink_bisimulation(greedy=false), prune_unreachable_states=true, prune_irrelevant_states=true, max_states=-1, max_states_before_merge=-1, threshold_before_merge=-1, verbosity=normal, main_loop_max_time=infinity))"]),
-    IssueConfig("shortest-cegar", ["--search", "shortest_astar(cegar())"]),
-    IssueConfig("shortest-hmax", ["--search", "shortest_astar(hmax())"]),
-    IssueConfig("shortest-ipdb", ["--search", "shortest_astar(ipdb(pdb_max_size=2000000, collection_max_size=20000000, num_samples=1000, min_improvement=10, max_time=infinity, random_seed=-1, max_time_dominance_pruning=infinity, transform=no_transform(), cache_estimates=true))"]),
+    IssueConfig("shortest-ms", ["--search", "shortest_astar(merge_and_shrink(transform=no_transform(), cache_estimates=true, merge_strategy=merge_strategy=merge_sccs(order_of_sccs=topological,merge_selector=score_based_filtering(scoring_functions=[goal_relevance,dfp,total_order])),shrink_strategy=shrink_strategy=shrink_bisimulation(greedy=false), prune_unreachable_states=true, prune_irrelevant_states=true, max_states=-1, max_states_before_merge=-1, threshold_before_merge=-1, verbosity=normal, main_loop_max_time=infinity),verbosity=silent)"]),
+    IssueConfig("shortest-cegar", ["--search", "shortest_astar(cegar(),verbosity=silent)"]),
+    IssueConfig("shortest-hmax", ["--search", "shortest_astar(hmax(),verbosity=silent)"]),
+    IssueConfig("shortest-ipdb", ["--search", "shortest_astar(ipdb(pdb_max_size=2000000, collection_max_size=20000000, num_samples=1000, min_improvement=10, max_time=infinity, random_seed=-1, max_time_dominance_pruning=infinity, transform=no_transform(), cache_estimates=true),verbosity=silent)"]),
 ]
 
 SUITE = ["agricola-opt18-strips", "barman-opt11-strips", "data-network-opt18-strips", "elevators-opt08-strips", "elevators-opt11-strips", "floortile-opt11-strips", "floortile-opt14-strips", "ged-opt14-strips", "openstacks-opt08-strips", "openstacks-opt11-strips", "openstacks-opt14-strips", "organic-synthesis-split-opt18-strips", "parcprinter-08-strips", "parcprinter-opt11-strips", "pegsol-08-strips", "pegsol-opt11-strips", "petri-net-alignment-opt18-strips", "scanalyzer-08-strips", "scanalyzer-opt11-strips", "sokoban-opt08-strips", "sokoban-opt11-strips", "spider-opt18-strips", "tetris-opt14-strips", "transport-opt08-strips", "transport-opt11-strips", "transport-opt14-strips", "woodworking-opt08-strips", "woodworking-opt11-strips"]
