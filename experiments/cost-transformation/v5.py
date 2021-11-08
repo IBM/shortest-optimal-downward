@@ -18,13 +18,13 @@ BENCHMARKS_DIR = os.environ["DOWNWARD_BENCHMARKS"]
 # We then manually recompile the code in the build cache with the correct settings.
 REVISIONS = ["shortest-optimal-cost-transformation"]
 CONFIGS = [
-    IssueConfig("wct-blind", ["--search", "astar(weight(blind(transform=transform_costs_back()),10000))"]),
-    IssueConfig("wct-lmcut", ["--search", "astar(weight(lmcut(transform=transform_costs_back()),10000))"]),
+    IssueConfig("wct-blind", ["--search", "astar(weight(blind(transform=transform_costs_back()),10000),verbosity=silent)"]),
+    IssueConfig("wct-lmcut", ["--search", "astar(weight(lmcut(transform=transform_costs_back()),10000),verbosity=silent)"]),
 
-    IssueConfig("wct-ms", ["--search", "astar(weight(merge_and_shrink(transform=transform_costs_back(), cache_estimates=true, merge_strategy=merge_strategy=merge_sccs(order_of_sccs=topological,merge_selector=score_based_filtering(scoring_functions=[goal_relevance,dfp,total_order])),shrink_strategy=shrink_strategy=shrink_bisimulation(greedy=false), prune_unreachable_states=true, prune_irrelevant_states=true, max_states=-1, max_states_before_merge=-1, threshold_before_merge=-1, verbosity=normal, main_loop_max_time=infinity),10000))"]),
-    IssueConfig("wct-cegar", ["--search", "astar(weight(cegar(transform=transform_costs_back()),10000))"]),
-    IssueConfig("wct-hmax", ["--search", "astar(weight(hmax(transform=transform_costs_back()),10000))"]),
-    IssueConfig("wct-ipdb", ["--search", "astar(weight(ipdb(transform=transform_costs_back(), pdb_max_size=2000000, collection_max_size=20000000, num_samples=1000, min_improvement=10, max_time=infinity, random_seed=-1, max_time_dominance_pruning=infinity, cache_estimates=true),10000))"]),
+    IssueConfig("wct-ms", ["--search", "astar(weight(merge_and_shrink(transform=transform_costs_back(), cache_estimates=true, merge_strategy=merge_strategy=merge_sccs(order_of_sccs=topological,merge_selector=score_based_filtering(scoring_functions=[goal_relevance,dfp,total_order])),shrink_strategy=shrink_strategy=shrink_bisimulation(greedy=false), prune_unreachable_states=true, prune_irrelevant_states=true, max_states=-1, max_states_before_merge=-1, threshold_before_merge=-1, verbosity=normal, main_loop_max_time=infinity),10000),verbosity=silent)"]),
+    IssueConfig("wct-cegar", ["--search", "astar(weight(cegar(transform=transform_costs_back()),10000),verbosity=silent)"]),
+    IssueConfig("wct-hmax", ["--search", "astar(weight(hmax(transform=transform_costs_back()),10000),verbosity=silent)"]),
+    IssueConfig("wct-ipdb", ["--search", "astar(weight(ipdb(transform=transform_costs_back(), pdb_max_size=2000000, collection_max_size=20000000, num_samples=1000, min_improvement=10, max_time=infinity, random_seed=-1, max_time_dominance_pruning=infinity, cache_estimates=true),10000),verbosity=silent)"]),
 ]
 
 SUITE = ["agricola-opt18-strips", "barman-opt11-strips", "data-network-opt18-strips", "elevators-opt08-strips", "elevators-opt11-strips", "floortile-opt11-strips", "floortile-opt14-strips", "ged-opt14-strips", "openstacks-opt08-strips", "openstacks-opt11-strips", "openstacks-opt14-strips", "organic-synthesis-split-opt18-strips", "parcprinter-08-strips", "parcprinter-opt11-strips", "pegsol-08-strips", "pegsol-opt11-strips", "petri-net-alignment-opt18-strips", "scanalyzer-08-strips", "scanalyzer-opt11-strips", "sokoban-opt08-strips", "sokoban-opt11-strips", "spider-opt18-strips", "tetris-opt14-strips", "transport-opt08-strips", "transport-opt11-strips", "transport-opt14-strips", "woodworking-opt08-strips", "woodworking-opt11-strips"]
@@ -35,9 +35,7 @@ ENVIRONMENT = LocalEnvironment(processes=48)
 exp = IssueExperiment(
     revisions=REVISIONS,
     configs=CONFIGS,
-    environment=ENVIRONMENT,
-    soft_stdout_limit=10240, hard_stdout_limit=102400
-)
+    environment=ENVIRONMENT)
 exp.add_suite(BENCHMARKS_DIR, SUITE)
 
 exp.add_parser(exp.EXITCODE_PARSER)
