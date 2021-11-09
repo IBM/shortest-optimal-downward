@@ -16,7 +16,8 @@ BENCHMARKS_DIR = os.environ["DOWNWARD_BENCHMARKS"]
 # These revisions are all tag experimental branches off the same revision.
 # we only need different tags so lab creates separate build directories in the build cache.
 # We then manually recompile the code in the build cache with the correct settings.
-REVISIONS = ["shortest-optimal-cost-transformation","issue980v2"]
+OLD_REVISION = ["issue980v2"]
+REVISIONS = ["shortest-optimal-cost-transformation"]
 CONFIGS = [
     IssueConfig("wct-blind", ["--search", "astar(weight(blind(transform=transform_costs_back()),10000),verbosity=silent)"]),
     IssueConfig("wct-lmcut", ["--search", "astar(weight(lmcut(transform=transform_costs_back()),10000),verbosity=silent)"]),
