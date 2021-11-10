@@ -82,9 +82,18 @@ def make_comparison_tables():
     report = ComparativeReport(compared_configs, attributes=attributes, filter=rename_algorithms, filter_domain=NEW_SUITE)
     outfile = os.path.join(
                     exp.eval_dir,
-                    "%s-compare-no-parcprinter.%s" % (
+                    "%s-compare-no-parcprinter-wct-deval.%s" % (
                         exp.name, report.output_format))
     report(exp.eval_dir, outfile)
+
+    compared_configs = [("ct-%s" % nick, "wct-%s" % nick, "Diff (%s)" % nick) for nick in nicks]
+    report = ComparativeReport(compared_configs, attributes=attributes, filter=rename_algorithms, filter_domain=NEW_SUITE)
+    outfile = os.path.join(
+                    exp.eval_dir,
+                    "%s-compare-no-parcprinter-ct-wct.%s" % (
+                        exp.name, report.output_format))
+    report(exp.eval_dir, outfile)
+
 
 exp.add_step("make-comparison-tables", make_comparison_tables)
 
