@@ -5,10 +5,11 @@ import os
 
 from lab.environments import LocalEnvironment, BaselSlurmEnvironment
 from downward.reports.compare import ComparativeReport
+from downward.reports.scatter import ScatterPlotReport
 
 import common_setup
 from common_setup import IssueConfig, IssueExperiment
-#from relativescatter import RelativeScatterPlotReport
+# from relativescatter import RelativeScatterPlotReport
 from itertools import combinations
 
 DIR = os.path.dirname(os.path.abspath(__file__))
@@ -97,21 +98,31 @@ def make_comparison_tables():
 
 exp.add_step("make-comparison-tables", make_comparison_tables)
 
+def make_scatter():
+    def add_evaluations_per_time(run):
+        evaluations = run.get("evaluations")
+        time = run.get("search_time")
+        if evaluations is not None and evaluations >= 100 and time:
+            run["evaluations_per_time"] = evaluations / time
+        return run
 
+    attributes = ["evaluations_per_time", "expansions"]
+    pairs = [("ct-lmcut", "wct-lmcut")]
+    for algo1, algo2 in pairs:
+        for attr in attributes:
+            exp.add_report(
+                ScatterPlotReport(
+                    relative=True,
+                    get_category=lambda run1, run2: run1["domain"],
+                    attributes=[attr],
+                    filter_algorithm=[algo1, algo2],
+                    filter=[add_evaluations_per_time, rename_algorithms],
+                    filter_domain=NEW_SUITE,
+                    format="tex",
+                ),
+                name=f"{exp.name}-scatter-{algo1}-vs-{algo2}-{attr}.tex",
+            )
 
+exp.add_step("make-scatter", make_scatter)
 
-
-# exp.add_comparison_table_step(attributes=attributes, filter=rename_algorithms, algorithm_pairs=pairs, revisions=["ct", "shortest"])
-
-
-#exp.add_comparison_table_step()
-"""
-for r1, r2 in combinations(REVISIONS, 2):
-    for nick in ["opcount-seq-lmcut", "diverse-potentials", "optimal-lmcount"]:
-        exp.add_report(RelativeScatterPlotReport(
-            attributes=["total_time"],
-            filter_algorithm=["%s-%s" % (r, nick) for r in [r1, r2]],
-            get_category=lambda run1, run2: run1["domain"]),
-            outfile="issue925-v1-total-time-%s-%s-%s.png" % (r1, r2, nick))
-"""
 exp.run_steps()
