@@ -110,10 +110,10 @@ def make_scatter():
     pairs = [("ct-lmcut", "wct-lmcut")]
     for algo1, algo2 in pairs:
         for attr in attributes:
-            for abs in [True, False]:
-                abs_str = "abs" if abs else "rel"
+            for rel in [True, False]:
+                rel_str = "rel" if rel else "abs"
                 report = ScatterPlotReport(
-                        relative=abs,
+                        relative=rel,
                         get_category=lambda run1, run2: run1["domain"],
                         attributes=[attr],
                         filter_algorithm=[algo1, algo2],
@@ -121,7 +121,7 @@ def make_scatter():
                         filter_domain=NEW_SUITE,
                         format="tex",
                     )
-                outfile = os.path.join(exp.eval_dir,f"{exp.name}-scatter-{abs_str}-{algo1}-vs-{algo2}-{attr}.tex")
+                outfile = os.path.join(exp.eval_dir,f"{exp.name}-scatter-{rel_str}-{algo1}-vs-{algo2}-{attr}.tex")
                 report(exp.eval_dir, outfile)
 
 exp.add_step("make-scatter", make_scatter)
