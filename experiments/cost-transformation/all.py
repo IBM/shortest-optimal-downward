@@ -75,7 +75,8 @@ for nick in nicks:
     algs.extend(["ct-%s" % nick, "wct-%s" % nick, "shortest-%s" % nick])
     
 
-exp.add_absolute_report_step(attributes=attributes, filter=rename_algorithms, filter_algorithm=algs, filter_domain=NEW_SUITE)
+# exp.add_absolute_report_step(attributes=attributes, filter=rename_algorithms, filter_algorithm=algs, filter_domain=NEW_SUITE)
+exp.add_absolute_report_step(attributes=['coverage'], filter=rename_algorithms, filter_algorithm=algs, filter_domain=NEW_SUITE, format="tex")
 
 def make_comparison_tables():
     compared_configs = [("wct-%s" % nick, "shortest-%s" % nick, "Diff (%s)" % nick) for nick in nicks]
