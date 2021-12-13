@@ -129,7 +129,7 @@ exp.add_step("make-scatter", make_scatter)
 
 def make_mem_time_scatter():
     attributes = ["memory", "search_time"]
-    pairs = [("shortest-lmcut", "wct-lmcut")]
+    pairs = [("wct-lmcut", "shortest-lmcut")]
     for algo1, algo2 in pairs:
         for attr in attributes:
             for rel in [True, False]:
