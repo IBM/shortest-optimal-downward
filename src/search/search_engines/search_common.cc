@@ -134,7 +134,9 @@ create_shortest_astar_open_list_factory_and_f_eval(const Options &opts) {
     shared_ptr<Evaluator> h = opts.get<shared_ptr<Evaluator>>("eval");
     shared_ptr<Evaluator> f = make_shared<SumEval>(vector<shared_ptr<Evaluator>>({g, h}));
     shared_ptr<DEval> d = make_shared<DEval>();
-    vector<shared_ptr<Evaluator>> evals = {f, d, h};
+    shared_ptr<Evaluator> hd = opts.get<shared_ptr<Evaluator>>("d_eval");
+    shared_ptr<Evaluator> fd = make_shared<SumEval>(vector<shared_ptr<Evaluator>>({d, hd}));
+    vector<shared_ptr<Evaluator>> evals = {f, fd, h};
 
     Options options;
     options.set("evals", evals);
