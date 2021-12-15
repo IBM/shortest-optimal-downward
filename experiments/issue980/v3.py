@@ -69,7 +69,7 @@ algs.append('a0eb9a43ba45f8f9817d99ee7b8ea9676937a0a9-shortest-lmcut-oss-por')
 
 algs = ["issue980v2-shortest-lmcut", "issue980v3-shortesthd-lmcut"]
 
-exp.add_absolute_report_step(attributes=attributes,filter_algorithm=algs)
+exp.add_absolute_report_step(attributes=attributes,filter_algorithm=algs, filter_domain=SUITE)
 
 
 #exp.add_comparison_table_step()
