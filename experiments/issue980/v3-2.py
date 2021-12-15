@@ -7,7 +7,9 @@ from lab.environments import LocalEnvironment, BaselSlurmEnvironment
 
 import common_setup
 from common_setup import IssueConfig, IssueExperiment
+from downward.reports.scatter import ScatterPlotReport
 #from relativescatter import RelativeScatterPlotReport
+
 from itertools import combinations
 
 DIR = os.path.dirname(os.path.abspath(__file__))
@@ -78,8 +80,7 @@ def make_scatter():
                         get_category=lambda run1, run2: run1["domain"],
                         attributes=[attr],
                         filter_algorithm=[algo1, algo2],
-                        filter=[add_evaluations_per_time, rename_algorithms],
-                        filter_domain=NEW_SUITE,
+                        filter_domain=SUITE,
                         format="tex",
                     )
                 outfile = os.path.join(exp.eval_dir,f"{exp.name}-scatter-{rel_str}-{algo1}-vs-{algo2}-{attr}.tex")
