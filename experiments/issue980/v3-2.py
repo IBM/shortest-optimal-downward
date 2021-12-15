@@ -46,6 +46,7 @@ exp.add_step('build', exp.build)
 exp.add_step('start', exp.start_runs)
 exp.add_fetcher(name='fetch')
 
+exp.add_fetcher('data/issue980-v3-eval')
 exp.add_fetcher('/data/software/shortest-optimal-v2/experiments/issue980/data/issue980-v2-eval')
 
 
@@ -64,7 +65,10 @@ algs.extend(["0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-cegar", "0de9a05
 algs.append('a0eb9a43ba45f8f9817d99ee7b8ea9676937a0a9-shortest-lmcut-oss-por')
 
 
-algs = ["issue980v2-shortest-lmcut", "issue980v3-shortesthd-lmcut"]
+algs = []
+nicks = ['lmcut', 'ms', 'cegar', 'hmax', 'ipdb']
+for nick in nicks:
+    algs.extend(["issue980v2-shortest-%s" % nick, "issue980v3-shortesthd-%s" % nick])
 
 exp.add_absolute_report_step(attributes=attributes,filter_algorithm=algs, filter_domain=SUITE)
 
