@@ -49,9 +49,9 @@ exp.add_step('build', exp.build)
 exp.add_step('start', exp.start_runs)
 exp.add_fetcher(name='fetch')
 
-exp.add_fetcher('data/issue980-v1-eval')
-exp.add_fetcher('data/issue980-consistent-eval')
-exp.add_fetcher('data/issue980-por-eval')
+exp.add_fetcher('/data/software/shortest-optimal-v2/experiments/issue980/data/issue980-v2-eval')
+
+
 attributes = (
             IssueExperiment.DEFAULT_TABLE_ATTRIBUTES + ["plan_length", "fixed_cost", "fixed_initial_h_value"])
 #exp.add_absolute_report_step(attributes=attributes)
@@ -59,11 +59,15 @@ attributes = (
 
 nicks = ["shortest-blind", "shortest-lmcut", "shortest-ms", "shortest-cegar", "shortest-hmax", "shortest-ipdb"]
 
+
 algs = ["%s-%s" % (r, nick) for r in REVISIONS for nick in nicks ]
 
 algs.extend(["0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-cegar", "0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-hmax","0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-ipdb", "0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-ms"])
 
 algs.append('a0eb9a43ba45f8f9817d99ee7b8ea9676937a0a9-shortest-lmcut-oss-por')
+
+
+algs = ["issue980v2-shortest-lmcut", "issue980v3-shortesthd-lmcut"
 
 exp.add_absolute_report_step(attributes=attributes,filter_algorithm=algs)
 
