@@ -55,14 +55,7 @@ attributes = (
 #exp.add_absolute_report_step(attributes=attributes)
 #exp.add_comparison_table_step(attributes=attributes)
 
-nicks = ["shortest-blind", "shortest-lmcut", "shortest-ms", "shortest-cegar", "shortest-hmax", "shortest-ipdb"]
 
-
-algs = ["%s-%s" % (r, nick) for r in REVISIONS for nick in nicks ]
-
-algs.extend(["0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-cegar", "0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-hmax","0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-ipdb", "0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-ms"])
-
-algs.append('a0eb9a43ba45f8f9817d99ee7b8ea9676937a0a9-shortest-lmcut-oss-por')
 
 
 algs = []
@@ -72,15 +65,26 @@ for nick in nicks:
 
 exp.add_absolute_report_step(attributes=attributes,filter_algorithm=algs, filter_domain=SUITE)
 
+def make_scatter():
 
-#exp.add_comparison_table_step()
-"""
-for r1, r2 in combinations(REVISIONS, 2):
-    for nick in ["opcount-seq-lmcut", "diverse-potentials", "optimal-lmcount"]:
-        exp.add_report(RelativeScatterPlotReport(
-            attributes=["total_time"],
-            filter_algorithm=["%s-%s" % (r, nick) for r in [r1, r2]],
-            get_category=lambda run1, run2: run1["domain"]),
-            outfile="issue925-v1-total-time-%s-%s-%s.png" % (r1, r2, nick))
-"""
+    attributes = ["expansions", "total_time"]
+    pairs = [("issue980v2-shortest-%s" % nick, "issue980v3-shortesthd-%s" % nick) for nick in nicks]
+    for algo1, algo2 in pairs:
+        for attr in attributes:
+            for rel in [True, False]:
+                rel_str = "rel" if rel else "abs"
+                report = ScatterPlotReport(
+                        relative=rel,
+                        get_category=lambda run1, run2: run1["domain"],
+                        attributes=[attr],
+                        filter_algorithm=[algo1, algo2],
+                        filter=[add_evaluations_per_time, rename_algorithms],
+                        filter_domain=NEW_SUITE,
+                        format="tex",
+                    )
+                outfile = os.path.join(exp.eval_dir,f"{exp.name}-scatter-{rel_str}-{algo1}-vs-{algo2}-{attr}.tex")
+                report(exp.eval_dir, outfile)
+
+exp.add_step("make-scatter", make_scatter)
+
 exp.run_steps()
