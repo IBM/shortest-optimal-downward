@@ -17,8 +17,6 @@ BENCHMARKS_DIR = os.environ["DOWNWARD_BENCHMARKS"]
 # We then manually recompile the code in the build cache with the correct settings.
 REVISIONS = ["issue980v3"]
 CONFIGS = [
-    # IssueConfig("shortesthd-lmcut", ["--search", "shortest_astar(lmcut(), d_eval=lmcut(transform=adapt_costs(cost_type=ONE)),verbosity=silent)"]),
-
     IssueConfig("shortesthd-ms", ["--search", "shortest_astar(merge_and_shrink(transform=no_transform(), cache_estimates=true, merge_strategy=merge_strategy=merge_sccs(order_of_sccs=topological,merge_selector=score_based_filtering(scoring_functions=[goal_relevance,dfp,total_order])),shrink_strategy=shrink_strategy=shrink_bisimulation(greedy=false), prune_unreachable_states=true, prune_irrelevant_states=true, max_states=-1, max_states_before_merge=-1, threshold_before_merge=-1, verbosity=normal, main_loop_max_time=infinity), d_eval=merge_and_shrink(transform=adapt_costs(cost_type=ONE), cache_estimates=true, merge_strategy=merge_strategy=merge_sccs(order_of_sccs=topological,merge_selector=score_based_filtering(scoring_functions=[goal_relevance,dfp,total_order])),shrink_strategy=shrink_strategy=shrink_bisimulation(greedy=false), prune_unreachable_states=true, prune_irrelevant_states=true, max_states=-1, max_states_before_merge=-1, threshold_before_merge=-1, verbosity=normal, main_loop_max_time=infinity), verbosity=silent)"]),
     IssueConfig("shortesthd-cegar", ["--search", "shortest_astar(cegar(), d_eval=cegar(transform=adapt_costs(cost_type=ONE)),verbosity=silent)"]),
     IssueConfig("shortesthd-hmax", ["--search", "shortest_astar(hmax(), d_eval=hmax(transform=adapt_costs(cost_type=ONE)),verbosity=silent)"]),
