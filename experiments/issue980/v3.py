@@ -67,7 +67,7 @@ algs.extend(["0de9a050a11d7142d5c2a56fa94cd9c7b3eb94ab-shortest-cegar", "0de9a05
 algs.append('a0eb9a43ba45f8f9817d99ee7b8ea9676937a0a9-shortest-lmcut-oss-por')
 
 
-algs = ["issue980v2-shortest-lmcut", "issue980v3-shortesthd-lmcut"
+algs = ["issue980v2-shortest-lmcut", "issue980v3-shortesthd-lmcut"]
 
 exp.add_absolute_report_step(attributes=attributes,filter_algorithm=algs)
 
