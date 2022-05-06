@@ -108,7 +108,7 @@ def make_scatter():
     def add_evaluations_per_time(run):
         evaluations = run.get("evaluations")
         time = run.get("search_time")
-        if evaluations is not None and evaluations >= 100 and time:
+        if evaluations is not None and evaluations >= 100 and time and time > 1:
             run["evaluations_per_time"] = evaluations / time
         return run
 
