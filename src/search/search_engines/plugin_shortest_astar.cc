@@ -22,6 +22,7 @@ static shared_ptr<SearchEngine> _parse(OptionParser &parser) {
         "s is not expanded, but instead reinserted into the open list. "
         "This option is currently only present for the A* algorithm.");
     parser.add_option<shared_ptr<Evaluator>>("eval", "evaluator for h-value");
+    parser.add_option<shared_ptr<Evaluator>>("d_eval", "evaluator for hd-value");
     parser.add_option<shared_ptr<Evaluator>>(
         "lazy_evaluator",
         "An evaluator that re-evaluates a state before it is expanded.",
