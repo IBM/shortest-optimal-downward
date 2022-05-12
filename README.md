@@ -1,3 +1,26 @@
+# A planner for shortest cost optimal planning problem
+
+## The code implements two approaches in two separate branches
+1. Cost-algebraic A* in branch `shortest-optimal-cost-algebra`
+2. Cost transformation with regular A* in branch `shortest-optimal-cost-transformation`
+
+Citing:
+
+```
+@InProceedings{katz-et-al-socs2022,
+  title =        "On Producing Shortest Cost-Optimal Plans",
+  author =       "Michael Katz and Gabriele R{\"o}ger and Malte Helmert",
+  booktitle =    "Proceedings of the 15th Annual Symposium on
+                  Combinatorial Search (SoCS 2022)",
+  publisher =    "{AAAI} Press",
+  year =         "2022"
+}
+```
+
+
+
+<br><br><br><br><br><br><br><br>
+
 <img src="misc/images/fast-downward.svg" width="800" alt="Fast Downward">
 
 Fast Downward is a domain-independent classical planning system.
